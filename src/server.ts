@@ -1,20 +1,22 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 import * as http from "http";
+
+import { parseBodyJson } from "./middleware/parseBody";
+import { UserHandlers } from "./handlers/UserHandlers";
 import { Router } from "./router";
+import { Store } from "./store";
 
 const main = async () => {
   const router = new Router({ baseUrl: "/api" });
+  const store = new Store();
+  const handlers = new UserHandlers({ store });
+
+  router.use(parseBodyJson);
 
   router
-    .post("/users", (req, res) => {
-      res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
-      res.end("ok");
-    })
-    .get("/users", (req, res) => {
-      res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
-      res.end("ok");
-    });
+    .get("/users", handlers.getUsersHandler)
+    .post("/users", handlers.addUserHandler);
 
   const server = http.createServer(router.handle);
 

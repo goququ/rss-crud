@@ -1,10 +1,10 @@
-import { IncomingMessage } from "node:http";
+import { PatchedIncomingMessage } from "./types";
 
-export const promisifyMessage = (stream: IncomingMessage) =>
+export const promisifyMessage = (stream: PatchedIncomingMessage) =>
   new Promise((res, rej) => {
     let data = "";
 
-    stream.on("data", (chunk: string) => {
+    stream.on("data" as const, (chunk: string) => {
       data += chunk;
     });
 

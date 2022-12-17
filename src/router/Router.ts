@@ -1,4 +1,10 @@
-import { Methods, METHODS, RequestHandler } from "../utils/message";
+import {
+  Methods,
+  METHODS,
+  Middleware,
+  PatchedIncomingMessage,
+  RequestHandler,
+} from "../utils/message";
 import { HandlersStore } from "./HandlersStore";
 
 interface RouterOptions {
@@ -8,6 +14,7 @@ interface RouterOptions {
 export class Router {
   private handlersStore: HandlersStore;
   private baseUrl = "";
+  private middleware: Middleware[] = [];
 
   constructor(options: RouterOptions) {
     this.handlersStore = new HandlersStore();
@@ -28,6 +35,10 @@ export class Router {
     return `${this.baseUrl}${path}`;
   }
 
+  use(middleware: Middleware) {
+    this.middleware.push(middleware);
+  }
+
   post(path: string, handler: RequestHandler) {
     this.registerHandler(METHODS.POST, path, handler);
     return this;
@@ -45,7 +56,17 @@ export class Router {
     return this;
   }
 
-  handle: RequestHandler = (req, res) => {
+  applyMiddleware: RequestHandler = async (req, res) => {
+    for (const middlewareItem of this.middleware) {
+      await new Promise((resolve) => {
+        middlewareItem(req as PatchedIncomingMessage, res, resolve);
+      });
+    }
+  };
+
+  handle: RequestHandler = async (req, res) => {
+    await this.applyMiddleware(req, res);
+
     const method = req.method as Methods;
     const path = req.url || "";
 
