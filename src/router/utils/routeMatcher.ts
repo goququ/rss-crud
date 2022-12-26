@@ -1,5 +1,5 @@
-const convertPatternToRegexp = (pattern: string): RegExp => {
-  const str = pattern.replace(/\{\w+\}/gi, "\\{\\w+\\}");
+export const convertPatternToRegexp = (pattern: string): RegExp => {
+  const str = pattern.replace(/\{[\s\S]+\}/gi, "[\\s\\S]+");
   return new RegExp(str);
 };
 
