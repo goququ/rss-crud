@@ -1,7 +1,7 @@
 import { PatchedIncomingMessage } from "./types";
 
 export const promisifyMessage = (stream: PatchedIncomingMessage) =>
-  new Promise((res, rej) => {
+  new Promise<string | undefined>((res, rej) => {
     let data = "";
 
     stream.on("data" as const, (chunk: string) => {
