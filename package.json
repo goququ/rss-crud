@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start:dev": "nodemon src/server.ts",
+    "start:dev": "nodemon src/index.ts",
     "start:prod": "npm run build && node dist/bundle.js",
     "start:multi": "TODO",
     "build": "webpack",

@@ -1,5 +1,6 @@
 import * as dotenv from "dotenv";
 dotenv.config();
+
 import * as http from "http";
 
 import { parseBodyJson } from "./middleware/parseBody";
@@ -8,7 +9,7 @@ import { Router } from "./router";
 import { Store } from "./store";
 import { ROUTES } from "./router/consts";
 
-const main = async () => {
+export const createServer = async () => {
   const router = new Router({ baseUrl: "" });
   const store = new Store();
   const handlers = new UserHandlers({ store });
@@ -27,9 +28,6 @@ const main = async () => {
   server.listen(process.env.RSS_APP_PORT, () => {
     console.log(`Server listening on port: ${process.env.RSS_APP_PORT}`);
   });
-};
 
-main().catch((error) => {
-  console.error("Backend failed to start up", error);
-  process.exit(1);
-});
+  return server;
+};
