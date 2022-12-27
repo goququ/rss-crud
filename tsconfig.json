@@ -3,7 +3,8 @@
   "include": ["src/**/*.ts"],
   "compilerOptions": {
     "types": ["jest", "node"],
-    "rootDir": ".",
+    "rootDir": "src",
+    "baseUrl": ".",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "strictFunctionTypes": true,

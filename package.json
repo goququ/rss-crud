@@ -4,9 +4,10 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "start:dev": "nodemon src/server.ts",
-    "start:prod": "ts-node-esm src/server.ts",
+    "start:dev": "nodemon src/index.ts",
+    "start:prod": "ts-node-esm src/index.ts",
     "start:multi": "TODO",
+    "build": "TODO",
     "test": "jest --watch"
   },
   "module": "esm",
