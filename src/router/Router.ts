@@ -58,13 +58,26 @@ export class Router {
 
   applyMiddleware: RequestHandler = async (req, res) => {
     for (const middlewareItem of this.middleware) {
-      await new Promise((resolve) => {
-        middlewareItem(req as PatchedIncomingMessage, res, resolve);
+      await new Promise((resolve, reject) => {
+        try {
+          middlewareItem(req as PatchedIncomingMessage, res, resolve);
+        } catch (err) {
+          reject(err);
+        }
       });
     }
   };
 
   handle: RequestHandler = async (req, res) => {
+    try {
+      await this.handleRequest(req, res);
+    } catch (error) {
+      res.writeHead(500);
+      res.end({ error: "Internal server error" });
+    }
+  };
+
+  private handleRequest: RequestHandler = async (req, res) => {
     await this.applyMiddleware(req, res);
 
     const method = req.method as Methods;
