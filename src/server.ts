@@ -19,7 +19,8 @@ const main = async () => {
     .get(ROUTES.users, handlers.getUsersHandler)
     .post(ROUTES.users, handlers.addUserHandler)
     .get(ROUTES.singleUser, handlers.getUserByIdHandler)
-    .put(ROUTES.singleUser, handlers.updateUserByIdHandler);
+    .put(ROUTES.singleUser, handlers.updateUserByIdHandler)
+    .delete(ROUTES.singleUser, handlers.deleteUserById);
 
   const server = http.createServer(router.handle);
 

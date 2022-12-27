@@ -93,4 +93,33 @@ export class UserHandlers {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(updatedUser));
   }
+
+  // @ts-ignore
+  @validate(validatePath(ROUTES.singleUser))
+  async deleteUserById(req, res) {
+    const params = getRouteParams<{ userId: string }>(
+      ROUTES.singleUser,
+      req?.url || "",
+    );
+    const userId = params?.userId;
+
+    if (!userId) {
+      res.writeHead(401, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "No user id" }));
+      return;
+    }
+
+    const user = await this.store.getUserById(userId);
+
+    if (!user) {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Unknown user" }));
+      return;
+    }
+
+    await this.store.deleteUser(userId);
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end();
+  }
 }

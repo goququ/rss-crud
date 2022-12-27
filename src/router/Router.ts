@@ -55,6 +55,10 @@ export class Router {
     this.registerHandler(METHODS.PUT, path, handler);
     return this;
   }
+  delete(path: string, handler: RequestHandler) {
+    this.registerHandler(METHODS.DELETE, path, handler);
+    return this;
+  }
 
   applyMiddleware: RequestHandler = async (req, res) => {
     for (const middlewareItem of this.middleware) {

@@ -11,5 +11,7 @@ export const parseBodyJson: Middleware = async (req, res, next) => {
       res.writeHead(400);
       res.end(JSON.stringify({ error: "Invalid JSON" }));
     }
+  } else {
+    next();
   }
 };

@@ -4,6 +4,7 @@ export const METHODS = {
   PUT: "PUT",
   OPTIONS: "OPTIONS",
   PATCH: "PATCH",
+  DELETE: "DELETE",
 } as const;
 
 export const STATUS_CODES = {
