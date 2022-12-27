@@ -5,6 +5,8 @@
     "types": ["jest", "node"],
     "rootDir": ".",
     "moduleResolution": "node",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true
   }
 }

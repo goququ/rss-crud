@@ -6,17 +6,19 @@ import { parseBodyJson } from "./middleware/parseBody";
 import { UserHandlers } from "./handlers/UserHandlers";
 import { Router } from "./router";
 import { Store } from "./store";
+import { ROUTES } from "./router/consts";
 
 const main = async () => {
-  const router = new Router({ baseUrl: "/api" });
+  const router = new Router({ baseUrl: "" });
   const store = new Store();
   const handlers = new UserHandlers({ store });
 
   router.use(parseBodyJson);
 
   router
-    .get("/users", handlers.getUsersHandler)
-    .post("/users", handlers.addUserHandler);
+    .get(ROUTES.users, handlers.getUsersHandler)
+    .post(ROUTES.users, handlers.addUserHandler)
+    .get(ROUTES.singleUser, handlers.getUserByIdHandler);
 
   const server = http.createServer(router.handle);
 

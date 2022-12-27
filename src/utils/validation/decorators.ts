@@ -15,7 +15,7 @@ export const validate = (validator: RequestValidator) => {
           res: ServerResponse,
           ...rest
         ) => {
-          const error = validator(req.body);
+          const error = validator(req);
 
           if (error) {
             res.writeHead(error.statusCode, {

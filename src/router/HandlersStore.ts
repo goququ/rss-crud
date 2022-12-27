@@ -1,4 +1,5 @@
 import { METHODS, Methods, RequestHandler } from "../utils/message";
+import { isRouteMatchPattern } from "./utils";
 
 type HandlersStoreType = Record<
   Methods,
@@ -16,9 +17,9 @@ export class HandlersStore {
   }
 
   getHandler(method: Methods, path: string): undefined | RequestHandler {
-    const record = this.store[method].find(({ pathSchema }) => {
-      return pathSchema === path;
-    });
+    const record = this.store[method].find(({ pathSchema }) =>
+      isRouteMatchPattern(pathSchema, path),
+    );
 
     return record?.handler;
   }

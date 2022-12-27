@@ -1,13 +1,15 @@
-import { User } from "../../store";
-import { STATUS_CODES } from "../message";
-import { RequestValidator } from "./types";
+import { User } from "../../../store";
+import { PatchedIncomingMessage, STATUS_CODES } from "../../message";
+import { RequestValidator } from "../types";
 
 const isNumber = (val: any) =>
   ![undefined, null, ""].includes(val) && !Number.isNaN(+val) && isFinite(+val);
 
 export const validateIncomingUser: RequestValidator = (
-  user?: Partial<User> | undefined,
+  req?: PatchedIncomingMessage | undefined,
 ) => {
+  const user = req?.body as Partial<User>;
+
   if (!user) {
     return {
       statusCode: STATUS_CODES.BAD_REQUEST,
