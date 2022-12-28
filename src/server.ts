@@ -9,7 +9,7 @@ import { Router } from "./router";
 import { Store } from "./store";
 import { ROUTES } from "./router/consts";
 
-export const createServer = async () => {
+export const createServer = async ({ notify } = { notify: true }) => {
   const router = new Router({ baseUrl: "" });
   const store = new Store();
   const handlers = new UserHandlers({ store });
@@ -26,7 +26,9 @@ export const createServer = async () => {
   const server = http.createServer(router.handle);
 
   server.listen(process.env.RSS_APP_PORT, () => {
-    console.log(`Server listening on port: ${process.env.RSS_APP_PORT}`);
+    if (notify) {
+      console.log(`Server listening on port: ${process.env.RSS_APP_PORT}`);
+    }
   });
 
   return server;

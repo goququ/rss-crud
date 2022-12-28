@@ -119,7 +119,7 @@ export class UserHandlers {
 
     await this.store.deleteUser(userId);
 
-    res.writeHead(200, { "Content-Type": "application/json" });
+    res.writeHead(204, { "Content-Type": "application/json" });
     res.end();
   }
 }

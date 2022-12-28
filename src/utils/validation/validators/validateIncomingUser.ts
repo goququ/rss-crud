@@ -18,7 +18,6 @@ export const validateIncomingUser: RequestValidator = (
   }
 
   if (!isNumber(user?.age)) {
-    console.log("🚀 ~ file: validators.ts:20 ~ user?.age", user?.age);
     return {
       statusCode: STATUS_CODES.BAD_REQUEST,
       message: "'age' parameter not provided",
