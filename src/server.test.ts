@@ -18,18 +18,18 @@ describe("Application integration tests", function () {
     typeof http.ServerResponse
   >;
 
-  // beforeEach(async () => {
-  //   server = await createServer({ notify: false });
-  // });
+  beforeEach(async () => {
+    server = await createServer({ notify: false });
+  });
 
-  // afterEach(async () => {
-  //   server.close();
-  // });
+  afterEach(async () => {
+    server.close();
+  });
 
   it("Create user", async function () {
-    // await superagent.get(getUrl("/users")).then(({ body }) => {
-    //   expect(body).toStrictEqual([]);
-    // });
+    await superagent.get(getUrl("/users")).then(({ body }) => {
+      expect(body).toStrictEqual([]);
+    });
 
     const createdUser = await superagent
       .post(getUrl("/users"))
