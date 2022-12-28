@@ -17,11 +17,11 @@ export const createServer = async ({ notify } = { notify: true }) => {
   router.use(parseBodyJson);
 
   router
-    .get(ROUTES.users, handlers.getUsersHandler)
-    .post(ROUTES.users, handlers.addUserHandler)
-    .get(ROUTES.singleUser, handlers.getUserByIdHandler)
-    .put(ROUTES.singleUser, handlers.updateUserByIdHandler)
-    .delete(ROUTES.singleUser, handlers.deleteUserById);
+    .get(ROUTES.users, handlers.getUsersHandler.bind(handlers))
+    .post(ROUTES.users, handlers.addUserHandler.bind(handlers))
+    .get(ROUTES.singleUser, handlers.getUserByIdHandler.bind(handlers))
+    .put(ROUTES.singleUser, handlers.updateUserByIdHandler.bind(handlers))
+    .delete(ROUTES.singleUser, handlers.deleteUserById.bind(handlers));
 
   const server = http.createServer(router.handle);
 

@@ -4,6 +4,7 @@ import {
   Middleware,
   PatchedIncomingMessage,
   RequestHandler,
+  STATUS_CODES,
 } from "../utils/message";
 import { HandlersStore } from "./HandlersStore";
 
@@ -76,8 +77,9 @@ export class Router {
     try {
       await this.handleRequest(req, res);
     } catch (error) {
-      res.writeHead(500);
-      res.end({ error: "Internal server error" });
+      console.error(error);
+      res.writeHead(STATUS_CODES.INTERNAL_ERROR);
+      res.end(JSON.stringify({ error: "Internal server error" }));
     }
   };
 

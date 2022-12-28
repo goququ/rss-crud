@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
   entry: "./src/index.ts",
   target: "node",
-  mode: "production",
+  mode: "development",
   module: {
     rules: [
       {
@@ -15,10 +15,6 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".js"],
-    fallback: {
-      http: false,
-      os: false,
-    },
   },
   output: {
     filename: "bundle.js",
