@@ -8,7 +8,16 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        use: "ts-loader",
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+            plugins: [
+              "@babel/plugin-transform-typescript",
+              ["@babel/plugin-proposal-decorators", { legacy: true }],
+            ],
+          },
+        },
         exclude: /node_modules/,
       },
     ],
